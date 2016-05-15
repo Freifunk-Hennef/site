@@ -10,3 +10,13 @@ build:
     - make update
     - make GLUON_TARGET=ar71xx-generic V=s
 
+deploy:
+  rsync:
+    user: www-data
+    host: 10.10.0.186
+    port: 22
+    source: /drone/src/git.freifunk-hennef.de/Freifunk-Hennef/gluon/output/images/
+    target: /var/www/images.freifunk-hennef.de/
+    delete: false
+    recursive: true
+
