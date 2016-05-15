@@ -7,8 +7,13 @@ build:
     - git clone https://github.com/freifunk-gluon/gluon.git gluon -b v2016.1.4
     - cp -r site gluon/
     - cd gluon
+    - if [ -d site/tools ] ; then mv site/tools . ; fi
     - make update
     - make GLUON_TARGET=ar71xx-generic
+    - cp -r tools ../site/
+  cache:
+    mount:
+      - tools
 
 deploy:
   rsync:
