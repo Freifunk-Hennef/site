@@ -8,7 +8,7 @@ build:
     - cp -r site gluon/
     - cd gluon
     - make update
-    - make GLUON_TARGET=ar71xx-generic V=s
+    - make GLUON_TARGET=ar71xx-generic
 
 deploy:
   rsync:
