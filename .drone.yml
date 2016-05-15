@@ -1,5 +1,7 @@
 build:
   image: tobitheo/gluon-build:0.3
+  environment:
+    - FORCE_UNSAFE_CONFIGURE=1
   commands:
     - cd ..
     - git clone https://github.com/freifunk-gluon/gluon.git gluon -b v2016.1.4
