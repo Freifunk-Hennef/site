@@ -6,5 +6,5 @@ build:
     - cp -r site gluon/
     - cd gluon
     - make update
-    - make GLUON_TARGET=ar71xx-generic
+    - make GLUON_TARGET=ar71xx-generic V=s
 
