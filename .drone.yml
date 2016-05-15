@@ -1,0 +1,10 @@
+build:
+  image: tobitheo/gluon-build:0.3
+  commands:
+    - cd ..
+    - git clone https://github.com/freifunk-gluon/gluon.git gluon -b v2016.1.4
+    - cp -r site gluon/
+    - cd gluon
+    - make update
+    - make GLUON_TARGET=ar71xx-generic
+
