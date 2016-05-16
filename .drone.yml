@@ -1,15 +1,18 @@
 build:
   image: tobitheo/gluon-build:0.3
   environment:
+    - MAKE_JOBS=8
     - FORCE_UNSAFE_CONFIGURE=1
+    - GLUON_BUILD=v2016.1.4
+    - GLUON_TARGET=ar71xx-generic
   commands:
     - cd ..
-    - git clone https://github.com/freifunk-gluon/gluon.git gluon -b v2016.1.4
+    - git clone https://github.com/freifunk-gluon/gluon.git gluon -b $GLUON_BUILD
     - cp -r site gluon/
     - cd gluon
     - if [ -d site/tools ] ; then mv site/tools . ; fi
-    - make -j6 update
-    - make -j6 GLUON_TARGET=ar71xx-generic
+    - make -j$MAKE_JOBS update
+    - make -j$MAKE_JOBS GLUON_TARGET=$GLUON_TARGET
     - cp -r tools ../site/
   cache:
     mount:
