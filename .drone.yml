@@ -1,6 +1,6 @@
 cache:
   mount:
-    - gluon
+    - /drone/src/git.freifunk-hennef.de/Freifunk-Hennef/gluon
 
 build:
   image: tobitheo/gluon-build:0.3
@@ -27,7 +27,7 @@ deploy:
     host: 10.10.0.186
     port: 22
     source: /drone/src/git.freifunk-hennef.de/Freifunk-Hennef/gluon/output/images/
-    target: /var/www/images.freifunk-hennef.de/unsigned/$DRONE_BRANCH/
+    target: /var/www/images.freifunk-hennef.de/unsigned/$$BRANCH/
     delete: false
     recursive: true
 
