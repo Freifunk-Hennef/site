@@ -26,7 +26,7 @@ deploy:
     host: 10.10.0.186
     port: 22
     source: /drone/src/git.freifunk-hennef.de/Freifunk-Hennef/gluon/output/images/
-    target: /var/www/images.freifunk-hennef.de/
+    target: /var/www/images.freifunk-hennef.de/unsigned/$DRONE_BRANCH/
     delete: false
     recursive: true
 
