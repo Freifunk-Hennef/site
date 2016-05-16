@@ -14,6 +14,7 @@ build:
     - rm -r site
     - cp -a ../site .
     - make -j$MAKE_JOBS update
+    - make clean GLUON_TARGET=$GLUON_TARGET
     - make -j$MAKE_JOBS GLUON_TARGET=$GLUON_TARGET
   cache:
     mount:
