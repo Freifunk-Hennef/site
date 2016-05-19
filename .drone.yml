@@ -12,7 +12,7 @@ build:
   commands:
     - date
     - cd ..
-    - if [ -d gluon ] ; then cd gluon ; git checkout $GLUON_BUILD ; git reset --hard origin/$GLUON_BUILD ; cd .. ; fi
+    - if [ -d gluon ] ; then cd gluon ; git checkout $GLUON_BUILD ; git pull origin $GLUON_BUILD ; cd .. ; fi
     - if [ ! -d gluon ] ; then git clone https://github.com/freifunk-gluon/gluon.git gluon -b $GLUON_BUILD ; fi
     - cp -r site gluon/
     - cd gluon
