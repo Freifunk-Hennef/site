@@ -13,15 +13,21 @@ build:
     - date
     - cd ..
     - if [ -d gluon ] ; then cd gluon ; git checkout $GLUON_BUILD ; git pull origin $GLUON_BUILD ; cd .. ; fi
+    - date
     - if [ ! -d gluon ] ; then git clone https://github.com/freifunk-gluon/gluon.git gluon -b $GLUON_BUILD ; fi
+    - date
     - cp -r site gluon/
+    - date
     - cd gluon
     - rm -r site
     - cp -a ../site .
+    - date
     - make -j$MAKE_JOBS update
+    - date
     - make -j$MAKE_JOBS GLUON_TARGET=$GLUON_TARGET
     - date
     - mv output/images/ ../images/
+    - date
     - make clean
     - date
 
