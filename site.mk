@@ -31,5 +31,7 @@ DEFAULT_GLUON_RELEASE := 2016.1-exp$(shell date '+%Y%m%d')
 
 GLUON_RELEASE ?= $(DEFAULT_GLUON_RELEASE)
 
+GLUON_PRIORITY ?= 1
+
 # Languages to include
 GLUON_LANGS ?= en de
