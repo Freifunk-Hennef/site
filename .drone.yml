@@ -22,6 +22,8 @@ build:
     - cd gluon
     - rm -r site
     - cp -a ../site .
+    - if [ "$$BRANCH" != "exp" ] ; then sed -i -e "s/branch = \'experimental\'/branch = \'$$BRANCH\'/" site/site.conf ; fi
+    - cat site/site.conf
     - date
     - make -j$MAKE_JOBS update
     - date
@@ -35,10 +37,10 @@ build:
 deploy:
   rsync:
     user: www-data
-    host: 10.10.0.186
+    host: srv01.freifunk-hennef.de
     port: 22
     source: /drone/src/git.freifunk-hennef.de/Freifunk-Hennef/images/
-    target: /var/www/images.freifunk-hennef.de/unsigned/$$BRANCH/
+    target: /var/www/images/unsigned/$$BRANCH/
     delete: false
     recursive: true
 
