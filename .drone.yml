@@ -22,6 +22,7 @@ build:
     - cd gluon
     - rm -r site
     - cp -a ../site .
+    - if [ "$$BRANCH" != "exp" ] ; then export AABRANCH=$$BRANCH ; else export AABRANCH='experimental' ; fi
     - if [ "$$BRANCH" != "exp" ] ; then sed -i -e "s/branch = \'experimental\'/branch = \'$$BRANCH\'/" site/site.conf ; fi
     - cat site/site.conf
     - date
@@ -29,10 +30,9 @@ build:
     - date
     - make clean GLUON_TARGET=$GLUON_TARGET
     - date
-    - make -j$MAKE_JOBS GLUON_TARGET=$GLUON_TARGET
+    - make -j$MAKE_JOBS GLUON_TARGET=$GLUON_TARGET GLUON_BRANCH=$AABRANCH
     - date
-    - if [ "$$BRANCH" = "exp" ] ; then make manifest GLUON_BRANCH=experimental ; fi
-    - if [ "$$BRANCH" != "exp" ] ; then make manifest GLUON_BRANCH=$$BRANCH ; fi
+    - make manifest GLUON_BRANCH=$AABRANCH
     - date
     - mv output/images/ ../images/
     - date
