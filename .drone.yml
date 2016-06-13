@@ -9,11 +9,11 @@ build:
     - FORCE_UNSAFE_CONFIGURE=1
     - GLUON_BUILD=v2016.1.4
     - GLUON_TARGET=ar71xx-generic
-    - GLUON_RELEASE=$$GLUON_BUILD-$${BRANCH}-1.$$BUILD_NUMBER
   commands:
+    - export GLUON_RELEASE=$GLUON_BUILD-$${BRANCH}-1.$$BUILD_NUMBER
     - date
     - cd ..
-    - if [ .clear_cache -nt gluon] ; then rm -r gluon ; fi
+    - if [ .clear_cache -nt gluon ] ; then rm -r gluon ; fi
     - if [ -d gluon ] ; then cd gluon ; git checkout $GLUON_BUILD ; git pull origin $GLUON_BUILD ; cd .. ; fi
     - date
     - if [ ! -d gluon ] ; then git clone https://github.com/freifunk-gluon/gluon.git gluon -b $GLUON_BUILD ; fi
