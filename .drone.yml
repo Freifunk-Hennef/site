@@ -13,7 +13,7 @@ build:
     - export GLUON_RELEASE=$GLUON_BUILD-$${BRANCH}-1.$$BUILD_NUMBER
     - date
     - cd ..
-    - if [ .clear_cache -nt gluon ] ; then rm -r gluon ; fi
+    - if [ .clear_cache -nt gluon ] ; then echo "Clearing cache" ; rm -r gluon ; fi
     - if [ -d gluon ] ; then cd gluon ; git pull origin $GLUON_BUILD ; git checkout $GLUON_BUILD ; cd .. ; fi
     - date
     - if [ ! -d gluon ] ; then git clone https://github.com/freifunk-gluon/gluon.git gluon -b $GLUON_BUILD ; fi
