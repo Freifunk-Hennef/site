@@ -1,7 +1,3 @@
-cache:
-  mount:
-    - /drone/src/git.freifunk-hennef.de/Freifunk-Hennef/gluon
-
 build:
   image: tobitheo/gluon-build:0.3
   environment:
