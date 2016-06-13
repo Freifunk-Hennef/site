@@ -25,6 +25,7 @@ build:
     - if [ "$$BRANCH" != "exp" ] ; then export AABRANCH=$$BRANCH ; else export AABRANCH='experimental' ; fi
     - if [ "$$BRANCH" != "exp" ] ; then sed -i -e "s/branch = \'experimental\'/branch = \'$$BRANCH\'/" site/site.conf ; fi
     - cat site/site.conf
+    - export
     - date
     - make -j$MAKE_JOBS update
     - date
