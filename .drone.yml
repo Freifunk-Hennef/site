@@ -13,7 +13,6 @@ build:
     - export GLUON_RELEASE=$GLUON_BUILD-$${BRANCH}-1.$$BUILD_NUMBER
     - date
     - cd ..
-    - if [ .clear_cache -nt gluon ] ; then echo "Clearing cache" ; rm -r gluon ; fi
     - if [ -d gluon ] ; then cd gluon ; git pull origin $GLUON_BUILD ; git checkout $GLUON_BUILD ; cd .. ; fi
     - if [ -d gluon ] ; then cd gluon ;  git reset --hard ; git pull origin $GLUON_BUILD ; cd .. ; fi
     - date
