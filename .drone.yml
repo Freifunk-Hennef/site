@@ -19,7 +19,7 @@ build:
     - rm -r site
     - cp -a ../site .
     - if [ "$$BRANCH" != "exp" ] ; then export AABRANCH=$$BRANCH ; else export AABRANCH='experimental' ; fi
-    - if [ "$$BRANCH" != "exp" ] ; then sed -i -e "s/branch = \'experimental\'/branch = \'$$BRANCH\'/" site/site.conf ; fi
+    - if [ "$$BRANCH" != "exp" ] ; then sed -i -e "s/branch = 'experimental'/branch = \'$$BRANCH\'/" site/site.conf ; fi
     - cat site/site.conf
     - export
     - date
