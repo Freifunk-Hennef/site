@@ -4,7 +4,7 @@ build:
     - MAKE_JOBS=8
     - FORCE_UNSAFE_CONFIGURE=1
     - GLUON_BUILD=v2016.1.5
-    - GLUON_TARGET=ar71xx-generic
+    - GLUON_TARGETS="ar71xx-generic mpc85xx-generic"
   commands:
     - export GLUON_RELEASE=$GLUON_BUILD-$${BRANCH}-1.$$BUILD_NUMBER
     - date
@@ -25,9 +25,7 @@ build:
     - date
     - make -j$MAKE_JOBS update
     - date
-    - make clean GLUON_TARGET=$GLUON_TARGET
-    - date
-    - make -j$MAKE_JOBS GLUON_TARGET=$GLUON_TARGET GLUON_BRANCH=$AABRANCH
+    - for GLUON_TARGET in $GLUON_TARGETS ; do make clean GLUON_TARGET=$GLUON_TARGET ; date ; make -j$MAKE_JOBS GLUON_TARGET=$GLUON_TARGET GLUON_BRANCH=$AABRANCH ; done
     - date
     - make manifest GLUON_BRANCH=$AABRANCH
     - date
