@@ -33,5 +33,7 @@ GLUON_RELEASE ?= $(DEFAULT_GLUON_RELEASE)
 
 GLUON_PRIORITY ?= 1
 
+GLUON_REGION ?= eu
+
 # Languages to include
 GLUON_LANGS ?= en de
