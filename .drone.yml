@@ -1,5 +1,5 @@
 build:
-  image: tobitheo/gluon-build-docker
+  image: cbkffhef/ffhef-gluonbuild:0.2
   environment:
     - MAKE_JOBS=8
     - FORCE_UNSAFE_CONFIGURE=1
