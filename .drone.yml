@@ -1,9 +1,9 @@
 build:
-  image: tobitheo/gluon-build:0.3
+  image: cbkffhef/ffhef-gluonbuild:0.2
   environment:
     - MAKE_JOBS=8
     - FORCE_UNSAFE_CONFIGURE=1
-    - GLUON_BUILD=v2016.1.6
+    - GLUON_BUILD=v2016.2.2
     - GLUON_TARGETS=ar71xx-generic mpc85xx-generic
   commands:
     - export GLUON_RELEASE=$GLUON_BUILD-$${BRANCH}-1.$$BUILD_NUMBER
