@@ -1,0 +1,4 @@
+GLUON_SITE_FEEDS="ssidchanger"
+PACKAGES_SSIDCHANGER_REPO=https://github.com/ffac/gluon-ssid-changer.git
+PACKAGES_SSIDCHANGER_COMMIT=cc650fa8432c9f368e36cd60b7b1217b34d60c38
+PACKAGES_SSIDCHANGER_BRANCH=chaos-calmer
