@@ -31,6 +31,7 @@ build:
     - date
     - mv output/images/ ../images/
     - date
+    - curl "https://services.freifunk-hennef.de/nodered/tg_fw_build/experimental"
 
 deploy:
   rsync:
