@@ -1,6 +1,5 @@
 GLUON_SITE_PACKAGES := \
     gluon-mesh-batman-adv-15 \
-    gluon-alfred \
     gluon-respondd \
     gluon-autoupdater \
     gluon-config-mode-core \
@@ -20,6 +19,7 @@ GLUON_SITE_PACKAGES := \
     gluon-next-node \
     gluon-mesh-vpn-fastd \
     gluon-radvd \
+    gluon-ssid-changer \
     gluon-status-page \
     gluon-setup-mode \
     iwinfo \
