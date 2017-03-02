@@ -1,45 +1,45 @@
-build:
-  image: cbkffhef/ffhef-gluonbuild:0.2
-  environment:
-    - MAKE_JOBS=8
-    - FORCE_UNSAFE_CONFIGURE=1
-    - GLUON_BUILD=v2016.2.3
-    - GLUON_TARGETS=ar71xx-generic mpc85xx-generic
-  commands:
-    - export GLUON_RELEASE=$GLUON_BUILD-$${BRANCH}-1.$$BUILD_NUMBER
-    - date
-    - cd ..
-    - if [ -d gluon ] ; then cd gluon ; git checkout master ; git reset --hard ; git pull origin master ; git checkout $GLUON_BUILD ; cd .. ; fi
-    - date
-    - if [ ! -d gluon ] ; then git clone https://github.com/freifunk-gluon/gluon.git gluon -b $GLUON_BUILD ; fi
-    - date
-    - cp -r site gluon/
-    - date
-    - cd gluon
-    - rm -r site
-    - cp -a ../site .
-    - if [ "$$BRANCH" != "exp" ] ; then export AABRANCH=$$BRANCH ; else export AABRANCH='experimental' ; fi
-    - if [ "$$BRANCH" != "exp" ] ; then sed -i -e "s/branch = 'experimental'/branch = \'$$BRANCH\'/" site/site.conf ; fi
-    - cat site/site.conf
-    - export
-    - date
-    - make -j$MAKE_JOBS update
-    - date
-    - for GLUON_TARGET in $GLUON_TARGETS ; do make clean GLUON_TARGET=$GLUON_TARGET ; date ; make -j$MAKE_JOBS GLUON_TARGET=$GLUON_TARGET GLUON_BRANCH=$AABRANCH ; done
-    - date
-    - make manifest GLUON_BRANCH=$AABRANCH
-    - date
-    - mv output/images/ ../images/
-    - date
-    - curl "https://services.freifunk-hennef.de/nodered/tg_fw_build/experimental"
-
-deploy:
-  rsync:
-    user: www-data
-    host: srv01.freifunk-hennef.de
-    port: 22
-    source: /drone/src/git.freifunk-hennef.de/Freifunk-Hennef/images/
-    target: /var/www/images/unsigned/$$BRANCH/
-    delete: false
-    recursive: true
+pipeline:
+  build:
+    image: cbkffhef/ffhef-gluonbuild:0.2
+    environment:
+      - MAKE_JOBS=8
+      - FORCE_UNSAFE_CONFIGURE=1
+      - GLUON_BUILD=v2016.2.3
+      - GLUON_TARGETS=ar71xx-generic mpc85xx-generic
+    commands:
+      - export GLUON_RELEASE=$GLUON_BUILD-$${BRANCH}-1.$$BUILD_NUMBER
+      - date
+      - cd ..
+      - if [ -d gluon ] ; then cd gluon ; git checkout master ; git reset --hard ; git pull origin master ; git checkout $GLUON_BUILD ; cd .. ; fi
+      - date
+      - if [ ! -d gluon ] ; then git clone https://github.com/freifunk-gluon/gluon.git gluon -b $GLUON_BUILD ; fi
+      - date
+      - cp -r site gluon/
+      - date
+      - cd gluon
+      - rm -r site
+      - cp -a ../site .
+      - if [ "$$BRANCH" != "exp" ] ; then export AABRANCH=$$BRANCH ; else export AABRANCH='experimental' ; fi
+      - if [ "$$BRANCH" != "exp" ] ; then sed -i -e "s/branch = 'experimental'/branch = \'$$BRANCH\'/" site/site.conf ; fi
+      - cat site/site.conf
+      - export
+      - date
+      - make -j$MAKE_JOBS update
+      - date
+      - for GLUON_TARGET in $GLUON_TARGETS ; do make clean GLUON_TARGET=$GLUON_TARGET ; date ; make -j$MAKE_JOBS GLUON_TARGET=$GLUON_TARGET GLUON_BRANCH=$AABRANCH ; done
+      - date
+      - make manifest GLUON_BRANCH=$AABRANCH
+      - date
+      - mv output/images/ ../images/
+      - date
+      - curl "https://services.freifunk-hennef.de/nodered/tg_fw_build/experimental"
+  deploy:
+    rsync:
+      user: www-data
+      host: srv01.freifunk-hennef.de
+      port: 22
+      source: /drone/src/git.freifunk-hennef.de/Freifunk-Hennef/images/
+      target: /var/www/images/unsigned/$$BRANCH/
+      delete: false
+      recursive: true
 
