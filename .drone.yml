@@ -26,7 +26,7 @@ pipeline:
       - date
       - make -j$MAKE_JOBS update
       - date
-      - for GLUON_TARGET in $GLUON_TARGETS ; do make clean GLUON_TARGET=$GLUON_TARGET ; date ; make -j$MAKE_JOBS GLUON_TARGET=$GLUON_TARGET V=sc GLUON_BRANCH=$AABRANCH ; done
+      - for GLUON_TARGET in $GLUON_TARGETS ; do make dirclean GLUON_TARGET=$GLUON_TARGET ; date ; make clean GLUON_TARGET=$GLUON_TARGET ; date ; make -j$MAKE_JOBS GLUON_TARGET=$GLUON_TARGET V=sc GLUON_BRANCH=$AABRANCH ; done
       - date
       - make manifest GLUON_BRANCH=$AABRANCH
       - date
