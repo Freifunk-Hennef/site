@@ -1,6 +1,6 @@
 pipeline:
   build:
-    image: cbkffhef/ffhef-gluonbuild:0.2
+    image: ffhef/docker-buildimage
     environment:
       - MAKE_JOBS=8
       - FORCE_UNSAFE_CONFIGURE=1
@@ -9,10 +9,12 @@ pipeline:
     commands:
       - export GLUON_RELEASE=$GLUON_BUILD-${DRONE_BRANCH}-1.$DRONE_BUILD_NUMBER
       - date
+      - echo $GLUON_RELEASE
       - cd ..
       - if [ -d gluon ] ; then cd gluon ; git checkout master ; git reset --hard ; git pull origin master ; git checkout $GLUON_BUILD ; cd .. ; fi
       - date
       - if [ ! -d gluon ] ; then git clone https://github.com/freifunk-gluon/gluon.git gluon -b $GLUON_BUILD ; fi
+      - echo $GLUON_BUILD
       - date
       - cp -r site gluon/
       - date
@@ -21,6 +23,7 @@ pipeline:
       - cp -a ../site .
       - if [ "$DRONE_BRANCH" != "exp" ] ; then export AABRANCH=$DRONE_BRANCH ; else export AABRANCH='experimental' ; fi
       - if [ "$DRONE_BRANCH" != "exp" ] ; then sed -i -e "s/branch = 'experimental'/branch = \'$DRONE_BRANCH\'/" site/site.conf ; fi
+      - echo $AABRANCH
       - cat site/site.conf
       - export
       - date
