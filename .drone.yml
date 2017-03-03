@@ -7,7 +7,7 @@ pipeline:
       - GLUON_BUILD=v2016.2.3
       - GLUON_TARGETS=ar71xx-generic mpc85xx-generic
     commands:
-      - export GLUON_RELEASE=$GLUON_BUILD-$${BRANCH}-1.$$BUILD_NUMBER
+      - export GLUON_RELEASE=$GLUON_BUILD-${BRANCH}-1.$BUILD_NUMBER
       - date
       - cd ..
       - if [ -d gluon ] ; then cd gluon ; git checkout master ; git reset --hard ; git pull origin master ; git checkout $GLUON_BUILD ; cd .. ; fi
@@ -19,8 +19,8 @@ pipeline:
       - cd gluon
       - rm -r site
       - cp -a ../site .
-      - if [ "$$BRANCH" != "exp" ] ; then export AABRANCH=$$BRANCH ; else export AABRANCH='experimental' ; fi
-      - if [ "$$BRANCH" != "exp" ] ; then sed -i -e "s/branch = 'experimental'/branch = \'$$BRANCH\'/" site/site.conf ; fi
+      - if [ "$BRANCH" != "exp" ] ; then export AABRANCH=$BRANCH ; else export AABRANCH='experimental' ; fi
+      - if [ "$BRANCH" != "exp" ] ; then sed -i -e "s/branch = 'experimental'/branch = \'$BRANCH\'/" site/site.conf ; fi
       - cat site/site.conf
       - export
       - date
@@ -39,7 +39,7 @@ pipeline:
       host: srv01.freifunk-hennef.de
       port: 22
       source: /drone/src/git.freifunk-hennef.de/Freifunk-Hennef/images/
-      target: /var/www/images/unsigned/$$BRANCH/
+      target: /var/www/images/unsigned/$BRANCH/
       delete: false
       recursive: true
 
