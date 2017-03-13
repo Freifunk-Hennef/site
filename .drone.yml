@@ -4,7 +4,7 @@ pipeline:
     environment:
       - MAKE_JOBS=8
       - FORCE_UNSAFE_CONFIGURE=1
-      - GLUON_BUILD=v2016.2.3
+      - GLUON_BUILD=v2016.2.4
       - GLUON_TARGETS=ar71xx-generic mpc85xx-generic
     commands:
       - export GLUON_RELEASE=$GLUON_BUILD-${DRONE_BRANCH}-1.$DRONE_BUILD_NUMBER
