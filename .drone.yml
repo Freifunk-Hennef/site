@@ -35,12 +35,11 @@ pipeline:
       - date
       - curl "https://services.freifunk-hennef.de/nodered/tg_fw_build/experimental"
   deploy:
-    rsync:
-      user: www-data
-      host: srv01.freifunk-hennef.de
-      port: 22
-      source: /drone/src/git.freifunk-hennef.de/Freifunk-Hennef/images/
-      target: /var/www/images/unsigned/$BRANCH/
-      delete: false
-      recursive: true
+    image: drillster/drone-rsync
+    user: www-data
+    hosts: [ "srv01.freifunk-hennef.de" ]
+    source: /drone/src/git.freifunk-hennef.de/Freifunk-Hennef/images/
+    target: /var/www/images/unsigned/$BRANCH/
+    delete: false
+    recursive: true
 
