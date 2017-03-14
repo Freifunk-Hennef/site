@@ -39,7 +39,7 @@ pipeline:
     user: www-data
     hosts: [ "srv01.freifunk-hennef.de" ]
     key: ${DEPLOYKEY}
-    source: /drone/src/git.freifunk-hennef.de/Freifunk-Hennef/images/
+    source: /drone/src/github.com/Freifunk-Hennef/images/
     target: /var/www/images/unsigned/$BRANCH/
     delete: false
     recursive: true
