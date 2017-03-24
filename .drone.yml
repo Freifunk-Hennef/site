@@ -10,7 +10,7 @@ pipeline:
       - export BUILDDATE=$( date +%Y%m%d )
       - export GLUON_RELEASE=$GLUON_BUILD-${DRONE_BRANCH}-$BUILDDATE
       - echo $BUILDDATE
-      - echo GLUON_RELEASE
+      - echo $GLUON_RELEASE
       - date
       - cd ..
       - if [ -d gluon ] ; then cd gluon ; git checkout master ; git reset --hard ; git pull origin master ; git checkout $GLUON_BUILD ; cd .. ; fi
