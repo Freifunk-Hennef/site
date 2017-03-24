@@ -5,7 +5,7 @@ pipeline:
       - MAKE_JOBS=8
       - FORCE_UNSAFE_CONFIGURE=1
       - GLUON_BUILD=master
-      - GLUON_TARGETS=ar71xx-generic mpc85xx-generic ar71xx-tiny ar71xx-mikrotik ar71xx-nand brcm2708-bcm2708 brcm2708-bcm2709 generic mvebu ramips-mt7621 ramips-mt7628 ramips-rt305x sunxi
+      - GLUON_TARGETS=ar71xx-generic mpc85xx-generic ar71xx-tiny ar71xx-nand brcm2708-bcm2708 brcm2708-bcm2709
     commands:
       - export BUILDDATE=$( date +%Y%m%d )
       - export GLUON_RELEASE=${DRONE_BRANCH}-$BUILDDATE
