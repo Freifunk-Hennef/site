@@ -9,7 +9,6 @@ pipeline:
     commands:
       - export BUILDDATE=$( date +%Y%m%d )
       - export GLUON_RELEASE=$GLUON_BUILD-${DRONE_BRANCH}-$BUILDDATE
-      - echo $BUILDDATE
       - echo $GLUON_RELEASE
       - date
       - cd ..
