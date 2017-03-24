@@ -4,12 +4,13 @@ pipeline:
     environment:
       - MAKE_JOBS=8
       - FORCE_UNSAFE_CONFIGURE=1
-      - GLUON_BUILD=v2016.2.4
-      - GLUON_TARGETS=ar71xx-generic mpc85xx-generic
+      - GLUON_BUILD=master
+      - GLUON_TARGETS=ar71xx-generic mpc85xx-generic ar71xx-tiny
     commands:
-      - export GLUON_RELEASE=$GLUON_BUILD-${DRONE_BRANCH}-1.$DRONE_BUILD_NUMBER
+      - export BUILDDATE=$( date +%Y%m%d )
+      - export GLUON_RELEASE=$GLUON_BUILD-${DRONE_BRANCH}-$BUILDDATE
+      - echo $BUILDDATE
       - date
-      - echo $GLUON_RELEASE
       - cd ..
       - if [ -d gluon ] ; then cd gluon ; git checkout master ; git reset --hard ; git pull origin master ; git checkout $GLUON_BUILD ; cd .. ; fi
       - date
@@ -21,26 +22,39 @@ pipeline:
       - rm -r site
       - cp -a ../site .
       - if [ "$DRONE_BRANCH" != "exp" ] ; then export AABRANCH=$DRONE_BRANCH ; else export AABRANCH='experimental' ; fi
-      - if [ "$DRONE_BRANCH" != "exp" ] ; then sed -i -e "s/branch = 'experimental'/branch = \'$DRONE_BRANCH\'/" site/site.conf ; fi
-      - echo $AABRANCH
+      - if [ "$DRONE_BRANCH" != "exp" ] ; then sed -i -e "s/branch = 'experimental'/branch = \'$AABRANCH\'/" site/site.conf ; fi
       - cat site/site.conf
       - export
       - date
       - make -j$MAKE_JOBS update
-      - for GLUON_TARGET in $GLUON_TARGETS ; do date ; make clean GLUON_TARGET=$GLUON_TARGET ; date ; make -j$MAKE_JOBS GLUON_TARGET=$GLUON_TARGET GLUON_BRANCH=$AABRANCH ; done
+      - date
+      - for GLUON_TARGET in $GLUON_TARGETS ; do make clean GLUON_TARGET=$GLUON_TARGET ; date ; make -j$MAKE_JOBS GLUON_TARGET=$GLUON_TARGET GLUON_BRANCH=$AABRANCH ; done
       - date
       - make manifest GLUON_BRANCH=$AABRANCH
       - date
       - mv output/images/ ../images/
       - date
-      - curl "https://services.freifunk-hennef.de/nodered/tg_fw_build/experimental"
+
   deploy:
     image: drillster/drone-rsync
     user: www-data
     hosts: [ "srv01.freifunk-hennef.de" ]
     key: ${DEPLOYKEY}
     source: /drone/src/github.com/Freifunk-Hennef/images/
-    target: /var/www/images/unsigned/$BRANCH/
+    target: /var/www/images/unsigned/$AABRANCH/
     delete: false
     recursive: true
 
+  positive:
+    image: ffhef/docker-curl
+    commands:
+      - curl "https://services.freifunk-hennef.de/nodered/tg_fw_build/${DRONE_BRANCH}/${DRONE_BUILD_NUMBER}/successful"
+    when:
+      status: success
+
+  negative:
+    image: ffhef/docker-curl
+    commands:
+      - curl "https://services.freifunk-hennef.de/nodered/tg_fw_build/${DRONE_BRANCH}/${DRONE_BUILD_NUMBER}/FAILED"
+    when:
+      status: failure

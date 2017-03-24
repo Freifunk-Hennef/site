@@ -19,7 +19,6 @@ GLUON_SITE_PACKAGES := \
     gluon-next-node \
     gluon-mesh-vpn-fastd \
     gluon-radvd \
-    gluon-ssid-changer \
     gluon-status-page \
     gluon-setup-mode \
     iwinfo \
@@ -36,4 +35,4 @@ GLUON_PRIORITY ?= 1
 GLUON_REGION ?= eu
 
 # Languages to include
-GLUON_LANGS ?= en de
+GLUON_LANGS ?= de en
