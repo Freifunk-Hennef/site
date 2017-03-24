@@ -8,7 +8,7 @@ pipeline:
       - GLUON_TARGETS=ar71xx-generic mpc85xx-generic ar71xx-tiny
     commands:
       - export BUILDDATE=$( date +%Y%m%d )
-      - export GLUON_RELEASE=$GLUON_BUILD-${DRONE_BRANCH}-$BUILDDATE
+      - export GLUON_RELEASE=${DRONE_BRANCH}-$BUILDDATE
       - echo $GLUON_RELEASE
       - date
       - cd ..
