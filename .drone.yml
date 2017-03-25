@@ -37,13 +37,11 @@ pipeline:
 
   deploy:
     image: drillster/drone-rsync
-    commands:
-      - if [ "$DRONE_BRANCH" != "exp" ] ; then export AABRANCH=$DRONE_BRANCH ; else export AABRANCH='experimental' ; fi
     user: www-data
     hosts: [ "srv01.freifunk-hennef.de" ]
     key: ${DEPLOYKEY}
     source: /drone/src/github.com/Freifunk-Hennef/images/
-    target: /var/www/images/unsigned/$AABRANCH/
+    target: /var/www/images/unsigned/${DRONE_BRANCH}/
     delete: false
     recursive: true
 
