@@ -1,5 +1,6 @@
 Site:Experimental
 =================
+[![Build Status](https://ci.freifunk-hennef.de/api/badges/Freifunk-Hennef/site/status.svg)](https://ci.freifunk-hennef.de/Freifunk-Hennef/site)  
 ATTENTION: This branch is not recommended for productive use!
 
 Every two weeks, we run an **automated** build from the actual master files of gluon, so we can checkout new features, hardware, and tweak our config to the possible changes. Given this, we recommend to not enable the autoupdater with this branch.
