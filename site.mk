@@ -25,6 +25,8 @@ GLUON_SITE_PACKAGES := \
 DEFAULT_GLUON_RELEASE := 2016.2-lede-$(shell date '+%Y%m%d')
 # Allow overriding the release number from the command line
 
+GLUON_ATH10K_MESH = ibss
+
 GLUON_RELEASE ?= $(DEFAULT_GLUON_RELEASE)
 
 GLUON_PRIORITY ?= 1
