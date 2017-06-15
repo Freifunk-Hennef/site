@@ -38,7 +38,7 @@ pipeline:
   deploy:
     image: drillster/drone-rsync
     user: www-data
-    hosts: [ "srv01.freifunk-hennef.de" ]
+    hosts: [ '[2a01:4f8:212:23d0::9999:30]' ]
     key: ${DEPLOYKEY}
     source: /drone/src/github.com/Freifunk-Hennef/images/
     target: /var/www/images/unsigned/${DRONE_BRANCH}/
