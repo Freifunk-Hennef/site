@@ -24,7 +24,7 @@ pipeline:
       - cat site/site.conf
       - export
       - date
-      - make -j$MAKE_JOBS update $VERBOSE
+      - make update $VERBOSE
       - date
       - for GLUON_TARGET in $GLUON_TARGETS ; do make -j$MAKE_JOBS GLUON_TARGET=$GLUON_TARGET GLUON_BRANCH=$AABRANCH $VERBOSE ; date ; done
       - make manifest GLUON_BRANCH=$AABRANCH $VERBOSE
