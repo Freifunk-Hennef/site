@@ -2,6 +2,7 @@ pipeline:
   build:
     image: ffhef/docker-buildimage
     environment:
+      - VERBOSE='V=s'
       - MAKE_JOBS=8
       - FORCE_UNSAFE_CONFIGURE=1
       - GLUON_BUILD=master
@@ -9,15 +10,12 @@ pipeline:
     commands:
       - export BUILDDATE=$( date +%Y%m%d )
       - export GLUON_RELEASE=${DRONE_BRANCH}-$BUILDDATE
-      - echo $GLUON_RELEASE
       - date
       - cd ..
       - if [ -d gluon ] ; then cd gluon ; git checkout master ; git reset --hard ; git pull origin master ; git checkout $GLUON_BUILD ; cd .. ; fi
-      - date
       - if [ ! -d gluon ] ; then git clone https://github.com/freifunk-gluon/gluon.git gluon -b $GLUON_BUILD ; fi
       - date
       - cp -r site gluon/
-      - date
       - cd gluon
       - rm -r site
       - cp -a ../site .
@@ -26,11 +24,12 @@ pipeline:
       - cat site/site.conf
       - export
       - date
-      - make -j$MAKE_JOBS update
+      - for GLUON_TARGET in $GLUON_TARGETS ; do make clean GLUON_TARGET=$GLUON_TARGET $VERBOSE ; date ; done
+      - make -j$MAKE_JOBS update $VERBOSE
       - date
-      - for GLUON_TARGET in $GLUON_TARGETS ; do make clean GLUON_TARGET=$GLUON_TARGET ; date ; make -j$MAKE_JOBS GLUON_TARGET=$GLUON_TARGET GLUON_BRANCH=$AABRANCH ; done
+      - for GLUON_TARGET in $GLUON_TARGETS ; do make -j$MAKE_JOBS GLUON_TARGET=$GLUON_TARGET GLUON_BRANCH=$AABRANCH $VERBOSE ; done
       - date
-      - make manifest GLUON_BRANCH=$AABRANCH
+      - make manifest GLUON_BRANCH=$AABRANCH $VERBOSE
       - date
       - mv output/images/ ../images/
       - date
