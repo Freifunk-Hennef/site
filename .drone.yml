@@ -1,4 +1,12 @@
 pipeline:
+  restore-cache:
+    image: drillster/drone-volume-cache
+    restore: true
+    mount:
+      - gluon
+    volumes:
+      - /var/cache/drone:/cache
+
   build:
     image: ffhef/docker-buildimage
     environment:
@@ -55,3 +63,12 @@ pipeline:
       - curl "https://services.freifunk-hennef.de/nodered/tg_fw_build/${DRONE_BRANCH}/${DRONE_BUILD_NUMBER}/FAILED"
     when:
       status: failure
+
+  rebuild-cache:
+    image: drillster/drone-volume-cache
+    rebuild: true
+    mount:
+      - gluon
+    volumes:
+      - /var/cache/drone:/cache
+
