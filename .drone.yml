@@ -62,7 +62,7 @@ pipeline:
     image: ffhef/docker-curl
     commands:
       - curl "https://services.freifunk-hennef.de/nodered/tg_fw_build/${DRONE_BRANCH}/${DRONE_BUILD_NUMBER}/FAILED"
-      - cat /tmp/buildlog
+      - tail -100 /tmp/buildlog
     when:
       status: failure
 
