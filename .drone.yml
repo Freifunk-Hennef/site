@@ -15,7 +15,7 @@ pipeline:
       - VERBOSE=
       - MAKE_JOBS=6
       - FORCE_UNSAFE_CONFIGURE=1
-      - GLUON_BUILD=v2017.1.3
+      - GLUON_BUILD=v2017.1.4
       - GLUON_TARGETS_OLD=ar71xx-generic mpc85xx-generic ar71xx-tiny ar71xx-nand brcm2708-bcm2708 brcm2708-bcm2709
       - GLUON_TARGETS=ar71xx-generic
     commands:
@@ -30,9 +30,9 @@ pipeline:
       - cp -a ../site .
       - if [ "$DRONE_BRANCH" != "exp" ] ; then export AABRANCH=$DRONE_BRANCH ; else export AABRANCH='experimental' ; fi
       - if [ "$DRONE_BRANCH" != "exp" ] ; then sed -i -e "s/branch = 'experimental'/branch = \'$AABRANCH\'/" site/site.conf ; fi
-      - make update $VERBOSE
+      - make -j$MAKE_JOBS update $VERBOSE
       - for GLUON_TARGET in $GLUON_TARGETS ; do make -j$MAKE_JOBS GLUON_TARGET=$GLUON_TARGET GLUON_BRANCH=$AABRANCH $VERBOSE | tee -a /tmp/buildlog ; done
-      - make manifest GLUON_BRANCH=$AABRANCH $VERBOSE
+      - make -j$MAKE_JOBS manifest GLUON_BRANCH=$AABRANCH $VERBOSE
       - mv output/images/ ../images/
       - mkdir -p /firmware/unsigned/
       - cp -r ../images/* /firmware/unsigned/
