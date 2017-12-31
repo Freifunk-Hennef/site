@@ -10,7 +10,7 @@ pipeline:
   build:
     image: ffhef/docker-buildimage
     volumes:
-      - /docker/firmware:/firmware
+      - /freifunk/firmware:/firmware
     environment:
       - VERBOSE=
       - MAKE_JOBS=6
