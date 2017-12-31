@@ -24,8 +24,7 @@ pipeline:
       - if [ ! -d gluon ] ; then git clone https://github.com/freifunk-gluon/gluon.git gluon -b $GLUON_BUILD ; fi
       - rm -rf gluon/site/
       - mkdir -p gluon/site/
-      - cp -ar i18n/ gluon/site/
-      - cp * gluon/site/
+      - cp -ar i18n/ site.* gluon/site/
       - if [ "$DRONE_BRANCH" != "exp" ] ; then export AABRANCH=$DRONE_BRANCH ; else export AABRANCH='experimental' ; fi
       - if [ "$DRONE_BRANCH" != "exp" ] ; then sed -i -e "s/branch = 'experimental'/branch = \'$AABRANCH\'/" site/site.conf ; fi
       - cd gluon
