@@ -20,7 +20,7 @@ pipeline:
     commands:
       - export BUILDDATE=$( date +%Y%m%d )
       - if [ "$DRONE_BRANCH" != "exp" ] ; then export GLUON_RELEASE=${GLUON_BUILD}-${DRONE_BRANCH}-1.${DRONE_BUILD_NUMBER} ; fi
-      - if [ "$DRONE_BRANCH" == "exp" ] ; then export GLUON_RELEASE=${DRONE_BRANCH}-$BUILDDATE ; fi
+      - if [ "$DRONE_BRANCH" == "exp" ] ; then export GLUON_RELEASE=${DRONE_BRANCH}-${BUILDDATE}-${DRONE_BUILD_NUMBER} ; fi
       - if [ -d gluon ] ; then cd gluon ; git checkout master ; git reset --hard ; git pull origin master ; git checkout $GLUON_BUILD ; cd .. ; fi
       - if [ ! -d gluon ] ; then git clone https://github.com/freifunk-gluon/gluon.git gluon -b $GLUON_BUILD ; fi
       - rm -rf gluon/site/
