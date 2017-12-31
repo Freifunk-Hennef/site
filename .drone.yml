@@ -16,22 +16,20 @@ pipeline:
       - MAKE_JOBS=6
       - FORCE_UNSAFE_CONFIGURE=1
       - GLUON_BUILD=v2017.1.4
-      - GLUON_TARGETS_OLD=ar71xx-generic mpc85xx-generic ar71xx-tiny ar71xx-nand brcm2708-bcm2708 brcm2708-bcm2709
-      - GLUON_TARGETS=ar71xx-generic
+      - GLUON_TARGETS=ar71xx-generic mpc85xx-generic ar71xx-tiny ar71xx-nand brcm2708-bcm2708 brcm2708-bcm2709
     commands:
       - export BUILDDATE=$( date +%Y%m%d )
       - export GLUON_RELEASE=${DRONE_BRANCH}-$BUILDDATE
-      - cd ..
       - if [ -d gluon ] ; then cd gluon ; git checkout master ; git reset --hard ; git pull origin master ; git checkout $GLUON_BUILD ; cd .. ; fi
       - if [ ! -d gluon ] ; then git clone https://github.com/freifunk-gluon/gluon.git gluon -b $GLUON_BUILD ; fi
-      - cp -r site gluon/
-      - cd gluon
-      - rm -r site
-      - cp -a ../site .
+      - rm -rf gluon/site/
+      - mkdir -p gluon/site/
+      - cp -ar i18n/ modules site.* gluon/site/
       - if [ "$DRONE_BRANCH" != "exp" ] ; then export AABRANCH=$DRONE_BRANCH ; else export AABRANCH='experimental' ; fi
       - if [ "$DRONE_BRANCH" != "exp" ] ; then sed -i -e "s/branch = 'experimental'/branch = \'$AABRANCH\'/" site/site.conf ; fi
+      - cd gluon
       - make -j$MAKE_JOBS update $VERBOSE
-      - for GLUON_TARGET in $GLUON_TARGETS ; do make -j$MAKE_JOBS GLUON_TARGET=$GLUON_TARGET GLUON_BRANCH=$AABRANCH $VERBOSE | tee -a /tmp/buildlog ; done
+      - for GLUON_TARGET in $GLUON_TARGETS ; do make -j$MAKE_JOBS GLUON_TARGET=$GLUON_TARGET GLUON_BRANCH=$AABRANCH $VERBOSE ; done
       - make -j$MAKE_JOBS manifest GLUON_BRANCH=$AABRANCH $VERBOSE
       - mv output/images/ ../images/
       - mkdir -p /firmware/unsigned/
