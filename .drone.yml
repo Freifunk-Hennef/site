@@ -13,7 +13,7 @@ pipeline:
       - /freifunk/firmware:/firmware
     environment:
       - VERBOSE=
-      - MAKE_JOBS=6
+      - MAKE_JOBS=8
       - FORCE_UNSAFE_CONFIGURE=1
       - GLUON_BUILD=v2017.1.4
       - GLUON_TARGETS=ar71xx-generic mpc85xx-generic ar71xx-tiny ar71xx-nand brcm2708-bcm2708 brcm2708-bcm2709
@@ -28,8 +28,8 @@ pipeline:
       - if [ "$DRONE_BRANCH" != "exp" ] ; then export AABRANCH=$DRONE_BRANCH ; else export AABRANCH='experimental' ; fi
       - if [ "$DRONE_BRANCH" != "exp" ] ; then sed -i -e "s/branch = 'experimental'/branch = \'$AABRANCH\'/" site/site.conf ; fi
       - cd gluon
-      - make -j$MAKE_JOBS update $VERBOSE
-      - for GLUON_TARGET in $GLUON_TARGETS ; do make -j$MAKE_JOBS GLUON_TARGET=$GLUON_TARGET GLUON_BRANCH=$AABRANCH $VERBOSE ; done
+      - make update $VERBOSE
+      - for GLUON_TARGET in $GLUON_TARGETS ; do echo "--------------------------------------------------------------------------------" ; echo "Building ${GLUON_TARGET}" ; make -j$MAKE_JOBS GLUON_TARGET=$GLUON_TARGET GLUON_BRANCH=$AABRANCH $VERBOSE ; done
       - make -j$MAKE_JOBS manifest GLUON_BRANCH=$AABRANCH $VERBOSE
       - mv output/images/ ../images/
       - mkdir -p /firmware/unsigned/
@@ -46,7 +46,6 @@ pipeline:
     image: ffhef/docker-curl
     commands:
       - curl "https://services.freifunk-hennef.de/nodered/tg_fw_build/${DRONE_BRANCH}/${DRONE_BUILD_NUMBER}/FAILED"
-      - tail -100 /tmp/buildlog
     when:
       status: failure
 
