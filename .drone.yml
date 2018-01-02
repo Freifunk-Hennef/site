@@ -28,8 +28,8 @@ pipeline:
       - if [ "$DRONE_BRANCH" != "exp" ] ; then sed -i -e "s/branch = 'experimental'/branch = \'$AABRANCH\'/" site/site.conf ; fi
       - cd gluon
       - make update $VERBOSE
-      - for GLUON_TARGET in $GLUON_TARGETS ; do echo "--------------------------------------------------------------------------------" ; echo "Building ${GLUON_TARGET}" ; make -j$MAKE_JOBS GLUON_TARGET=$GLUON_TARGET GLUON_BRANCH=$AABRANCH $VERBOSE ; done
-      - make -j$MAKE_JOBS manifest GLUON_BRANCH=$AABRANCH $VERBOSE
+      - for GLUON_TARGET in $GLUON_TARGETS ; do echo "--------------------------------------------------------------------------------" ; echo "Building $GLUON_TARGET" ; make -j$MAKE_JOBS GLUON_TARGET=$GLUON_TARGET GLUON_BRANCH=$AABRANCH $VERBOSE ; done
+      - make manifest GLUON_BRANCH=$AABRANCH $VERBOSE
       - mv output/images/ ../images/
       - mkdir -p /firmware/unsigned/
       - cp -r ../images/* /firmware/unsigned/
