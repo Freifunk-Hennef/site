@@ -28,9 +28,9 @@ pipeline:
       - make update $VERBOSE
       - for GLUON_TARGET in $GLUON_TARGETS ; do echo "--------------------------------------------------------------------------------" ; echo "Building $GLUON_TARGET" ; make -j$MAKE_JOBS GLUON_TARGET=$GLUON_TARGET GLUON_BRANCH=$AABRANCH $VERBOSE ; done
       - make manifest GLUON_BRANCH=$AABRANCH $VERBOSE
-      - mv output/images/ ../images/
       - mkdir -p /firmware/unsigned/
-      - cp -r ../images/* /firmware/unsigned/
+      - cp -r output/images/* /firmware/unsigned/
+      - if [ "$DRONE_BRANCH" = "exp" ] ; then ./contrib/sign.sh /firmware/keys/autosign.key /firmware/unsigned/sysupgrade/experimental.manifest && mv /firmware/unsigned/sysupgrade/* /firmware/signed/experimental/sysupgrade/ && mv /firmware/unsigned/factory/* /firmware/signed/experimental/factory/ ; fi
 
   positive:
     image: ffhef/docker-curl
