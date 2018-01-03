@@ -1,9 +1,8 @@
+workspace:
+  base: /workspace
+  path: Freifunk-Hennef/site
+
 pipeline:
-
-  workspace:
-    base: /workspace
-    path: Freifunk-Hennef/site
-
   build:
     image: ffhef/docker-buildimage
     volumes:
