@@ -1,17 +1,14 @@
 pipeline:
 
-  restore-cache:
-    image: drillster/drone-volume-cache
-    restore: true
-    mount:
-      - gluon
-    volumes:
-      - /var/cache/drone:/cache
+  workspace:
+    base: /workspace
+    path: Freifunk-Hennef/site
 
   build:
     image: ffhef/docker-buildimage
     volumes:
       - /freifunk/firmware:/firmware
+      - /var/cache/drone/gluon:/workspace/Freifunk-Hennef/site/gluon
     environment:
       - VERBOSE=
       - MAKE_JOBS=8
@@ -21,8 +18,8 @@ pipeline:
     commands:
       - if [ "$DRONE_BRANCH" != "exp" ] ; then export GLUON_RELEASE=${GLUON_BUILD}-${DRONE_BRANCH}-1.${DRONE_BUILD_NUMBER} ; fi
       - if [ "$DRONE_BRANCH" = "exp" ] ; then export GLUON_RELEASE=${DRONE_BRANCH}-$( date +%Y%m%d )-${DRONE_BUILD_NUMBER} ; fi
-      - if [ -d gluon ] ; then cd gluon ; git checkout master ; git reset --hard ; git pull origin master ; git checkout $GLUON_BUILD ; cd .. ; fi
-      - if [ ! -d gluon ] ; then git clone https://github.com/freifunk-gluon/gluon.git gluon -b $GLUON_BUILD ; fi
+      - if [ -d gluon/.git ] ; then cd gluon ; git checkout master ; git reset --hard ; git pull origin master ; git checkout $GLUON_BUILD ; cd .. ; fi
+      - if [ ! -d gluon/.git ] ; then git clone https://github.com/freifunk-gluon/gluon.git gluon -b $GLUON_BUILD ; fi
       - rm -rf gluon/site/
       - mkdir -p gluon/site/
       - cp -ar i18n/ site.* modules gluon/site/
@@ -49,12 +46,4 @@ pipeline:
       - curl "https://services.freifunk-hennef.de/nodered/tg_fw_build/${DRONE_BRANCH}/${DRONE_BUILD_NUMBER}/FAILED"
     when:
       status: failure
-
-  rebuild-cache:
-    image: drillster/drone-volume-cache
-    rebuild: true
-    mount:
-      - gluon
-    volumes:
-      - /var/cache/drone:/cache
 
