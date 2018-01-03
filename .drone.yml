@@ -1,8 +1,10 @@
 pipeline:
 
   restore-cache:
-    image: janstuemmel/drone-cache
-    dummy: true
+    image: drillster/drone-volume-cache
+    restore: true
+    mount:
+      - gluon
     volumes:
       - /var/cache/drone:/cache
 
@@ -49,8 +51,10 @@ pipeline:
       status: failure
 
   rebuild-cache:
-    image: janstuemmel/drone-cache
-    cache:
+    image: drillster/drone-volume-cache
+    rebuild: true
+    mount:
       - gluon
     volumes:
       - /var/cache/drone:/cache
+
