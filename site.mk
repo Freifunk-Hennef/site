@@ -13,6 +13,7 @@ GLUON_SITE_PACKAGES := \
     gluon-web-autoupdater \
     gluon-web-network \
     gluon-web-wifi-config \
+    gluon-web-private-wifi \
     gluon-mesh-batman-adv-15 \
     gluon-mesh-vpn-fastd \
     gluon-radvd \
@@ -21,6 +22,10 @@ GLUON_SITE_PACKAGES := \
     iwinfo \
     iptables \
     haveged
+
+# from ssidchanger-packages:
+GLUON_SITE_PACKAGES += \
+	gluon-ssid-changer
 
 DEFAULT_GLUON_RELEASE := 2016.2-lede-$(shell date '+%Y%m%d')
 # Allow overriding the release number from the command line
