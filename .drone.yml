@@ -16,6 +16,8 @@ pipeline:
       - GLUON_TARGETS=ar71xx-tiny ar71xx-generic ar71xx-nand brcm2708-bcm2708 brcm2708-bcm2709 mpc85xx-generic x86-generic x86-geode x86-64
 
     commands:
+      - git config --global user.email "drone@freie-netzwerker.de"
+      - git config --global user.name "Freie Netzwerker CI"
       - if [ "$DRONE_BRANCH" != "exp" ] ; then export GLUON_RELEASE=${GLUON_BUILD}-${DRONE_BRANCH}-1.${DRONE_BUILD_NUMBER} ; fi
       - if [ "$DRONE_BRANCH" = "exp" ] ; then export GLUON_RELEASE=${DRONE_BRANCH}-$( date +%Y%m%d )-${DRONE_BUILD_NUMBER} ; GLUON_TARGETS="ar71xx-tiny ar71xx-generic ar71xx-nand mpc85xx-generic" ; fi
       - if [ -d gluon/.git ] ; then cd gluon ; git checkout master ; git reset --hard ; git pull origin $GLUON_BUILD ; git checkout $GLUON_BUILD ; cd .. ; fi
