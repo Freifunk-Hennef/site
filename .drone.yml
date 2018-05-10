@@ -18,6 +18,7 @@ pipeline:
     commands:
       - export GLUON_RELEASE=$(date +%Y%m%d)-${DRONE_BUILD_NUMBER}-${DRONE_BRANCH}
       - if [ "$DRONE_BRANCH" = "experimental" ] ; then export GLUON_BUILD=master ; GLUON_TARGETS="ar71xx-tiny ar71xx-generic ar71xx-nand mpc85xx-generic" ; fi
+      - export
       - git config --global user.email "drone@freie-netzwerker.de"
       - git config --global user.name "Freie Netzwerker CI"
       - if [ -d gluon/.git ] ; then cd gluon ; git fetch ; git checkout -f $GLUON_BUILD ; git reset --hard ; cd .. ; fi
