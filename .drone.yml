@@ -29,7 +29,7 @@ pipeline:
       - sed -i -e "s/branch = 'experimental'/branch = \'$DRONE_BRANCH\'/" gluon/site/site.conf
       - cd gluon
       - make update $VERBOSE
-      - for GLUON_TARGET in $GLUON_TARGETS ; do echo "--------------------------------------------------------------------------------" ; echo "Building $GLUON_TARGET" ; make -j$MAKE_JOBS GLUON_TARGET=$GLUON_TARGET GLUON_BRANCH=$AABRANCH $VERBOSE ; done
+      - for GLUON_TARGET in $GLUON_TARGETS ; do echo "--------------------------------------------------------------------------------" ; echo "Building $GLUON_TARGET" ; make -j$MAKE_JOBS GLUON_TARGET=$GLUON_TARGET GLUON_BRANCH=$DRONE_BRANCH $VERBOSE ; done
       - make manifest GLUON_BRANCH=$DRONE_BRANCH $VERBOSE
       - mkdir -p /firmware/unsigned/
       - cp -r output/images/* /firmware/unsigned/
