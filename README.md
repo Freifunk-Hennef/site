@@ -1,4 +1,4 @@
-Freifunk-Hennef Gluon site config
+reifunk-Hennef Gluon site config
 =================================
 
 [![Build Status](https://ci.freifunk-hennef.de/api/badges/Freifunk-Hennef/site/status.svg)](https://ci.freifunk-hennef.de/Freifunk-Hennef/site)  
@@ -45,5 +45,7 @@ Data Privacy
 Since the whole world is talking about the new european regulations on data privacy, a few words from us.
 
 We, as the community of Freifunk Hennef, do not save any data about you. Any data you provide during the setup of the node is saved right there, on YOUR node.
+
 But to be clear, any information you provide there is considered "open access".
-So while i.e. we dont even display this information on our map (besides the coordinates you provide, if any - it IS a map!), anyone visiting the site of your router will see any information your router provides.
+
+So while i.e. we dont even display this information on our [map](https://map.freifunk-hennef.de/) (besides the coordinates you provide, if any - it IS a map!), anyone visiting the site of your router will see any information your router provides.
