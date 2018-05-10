@@ -1,4 +1,4 @@
-reifunk-Hennef Gluon site config
+Freifunk-Hennef Gluon site config
 =================================
 
 [![Build Status](https://ci.freifunk-hennef.de/api/badges/Freifunk-Hennef/site/status.svg)](https://ci.freifunk-hennef.de/Freifunk-Hennef/site)  
