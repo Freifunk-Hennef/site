@@ -12,28 +12,27 @@ pipeline:
       - VERBOSE=
       - MAKE_JOBS=8
       - FORCE_UNSAFE_CONFIGURE=1
-      - GLUON_BUILD=v2017.1.6
+      - GLUON_BUILD=v2017.1.7
       - GLUON_TARGETS=ar71xx-tiny ar71xx-generic ar71xx-nand brcm2708-bcm2708 brcm2708-bcm2709 mpc85xx-generic x86-generic x86-geode x86-64
 
     commands:
+      - export GLUON_RELEASE=$(date +%Y%m%d)-${DRONE_BUILD_NUMBER}-${DRONE_BRANCH}
+      - if [ "$DRONE_BRANCH" = "experimental" ] ; then export GLUON_BUILD=master ; GLUON_TARGETS="ar71xx-tiny ar71xx-generic ar71xx-nand mpc85xx-generic" ; fi
       - git config --global user.email "drone@freie-netzwerker.de"
       - git config --global user.name "Freie Netzwerker CI"
-      - if [ "$DRONE_BRANCH" != "exp" ] ; then export GLUON_RELEASE=${GLUON_BUILD}-${DRONE_BRANCH}-1.${DRONE_BUILD_NUMBER} ; fi
-      - if [ "$DRONE_BRANCH" = "exp" ] ; then export GLUON_RELEASE=${DRONE_BRANCH}-$( date +%Y%m%d )-${DRONE_BUILD_NUMBER} ; GLUON_TARGETS="ar71xx-tiny ar71xx-generic ar71xx-nand mpc85xx-generic" ; fi
       - if [ -d gluon/.git ] ; then cd gluon ; git fetch ; git checkout -f $GLUON_BUILD ; git reset --hard ; cd .. ; fi
       - if [ ! -d gluon/.git ] ; then git clone https://github.com/freifunk-gluon/gluon.git gluon -b $GLUON_BUILD ; fi
       - rm -rf gluon/site/
       - mkdir -p gluon/site/
       - cp -ar i18n/ site.* modules gluon/site/
-      - if [ "$DRONE_BRANCH" != "exp" ] ; then export AABRANCH=$DRONE_BRANCH ; else export AABRANCH='experimental' ; fi
-      - if [ "$DRONE_BRANCH" != "exp" ] ; then sed -i -e "s/branch = 'experimental'/branch = \'$AABRANCH\'/" site/site.conf ; fi
+      - sed -i -e "s/branch = 'experimental'/branch = \'$DRONE_BRANCH\'/" site/site.conf
       - cd gluon
       - make update $VERBOSE
       - for GLUON_TARGET in $GLUON_TARGETS ; do echo "--------------------------------------------------------------------------------" ; echo "Building $GLUON_TARGET" ; make -j$MAKE_JOBS GLUON_TARGET=$GLUON_TARGET GLUON_BRANCH=$AABRANCH $VERBOSE ; done
-      - make manifest GLUON_BRANCH=$AABRANCH $VERBOSE
+      - make manifest GLUON_BRANCH=$DRONE_BRANCH $VERBOSE
       - mkdir -p /firmware/unsigned/
       - cp -r output/images/* /firmware/unsigned/
-      - if [ "$DRONE_BRANCH" = "exp" ] ; then ./contrib/sign.sh /firmware/keys/autosign.key /firmware/unsigned/sysupgrade/experimental.manifest && mkdir -p /firmware/signed/experimental/ARCHIV/exp_$( date +%Y%m%d )/sysupgrade && mv /firmware/signed/experimental/sysupgrade/* /firmware/signed/experimental/ARCHIV/exp_$( date +%Y%m%d )/sysupgrade/ && mv /firmware/unsigned/sysupgrade/* /firmware/signed/experimental/sysupgrade/ && mkdir -p /firmware/signed/experimental/ARCHIV/exp_$( date +%Y%m%d )/factory && mv /firmware/signed/experimental/factory/* /firmware/signed/experimental/ARCHIV/exp_$( date +%Y%m%d )/factory/ && mv /firmware/unsigned/factory/* /firmware/signed/experimental/factory/ ; fi
+      - if [ "$DRONE_BRANCH" = "experimental" ] ; then ./contrib/sign.sh /firmware/keys/autosign.key /firmware/unsigned/sysupgrade/experimental.manifest && mkdir -p /firmware/signed/experimental/ARCHIV/exp_$( date +%Y%m%d )/sysupgrade && mv /firmware/signed/experimental/sysupgrade/* /firmware/signed/experimental/ARCHIV/exp_$( date +%Y%m%d )/sysupgrade/ && mv /firmware/unsigned/sysupgrade/* /firmware/signed/experimental/sysupgrade/ && mkdir -p /firmware/signed/experimental/ARCHIV/exp_$( date +%Y%m%d )/factory && mv /firmware/signed/experimental/factory/* /firmware/signed/experimental/ARCHIV/exp_$( date +%Y%m%d )/factory/ && mv /firmware/unsigned/factory/* /firmware/signed/experimental/factory/ ; fi
 
   positive:
     image: ffhef/docker-curl
