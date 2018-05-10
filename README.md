@@ -42,7 +42,6 @@ If you are just looking for the firmware itself, see our [Downloader](http://ima
 
 Data Privacy
 ------------
-
 Since the whole world is talking about the new european regulations on data privacy, a few words from us.
 
 We, as the community of Freifunk Hennef, do not save any data about you. Any data you provide during the setup of the node is saved right there, on YOUR node.
