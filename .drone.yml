@@ -48,4 +48,3 @@ pipeline:
       - curl "https://services.freifunk-hennef.de/nodered/tg_fw_build/${DRONE_BRANCH}/${DRONE_BUILD_NUMBER}/FAILED"
     when:
       status: failure
-
