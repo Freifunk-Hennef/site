@@ -49,3 +49,4 @@ We, as the community of Freifunk Hennef, do not save any data about you. Any dat
 But to be clear, any information you provide there is considered "open access".
 
 So while i.e. we dont even display this information on our [map](https://map.freifunk-hennef.de/) (besides the coordinates you provide, if any - it IS a map!), anyone visiting the site of your router will see any information your router provides.
+
