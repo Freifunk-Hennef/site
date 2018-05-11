@@ -26,7 +26,6 @@ pipeline:
       - rm -rf gluon/site/
       - mkdir -p gluon/site/
       - cp -ar i18n/ site.* modules gluon/site/
-      - sed -i -e "s/branch = 'experimental'/branch = \'$DRONE_BRANCH\'/" gluon/site/site.conf
       - cd gluon
       - make update $VERBOSE
       - for GLUON_TARGET in $GLUON_TARGETS ; do echo "--------------------------------------------------------------------------------" ; echo "Building $GLUON_TARGET" ; make -j$MAKE_JOBS GLUON_TARGET=$GLUON_TARGET GLUON_BRANCH=$DRONE_BRANCH $VERBOSE ; done
