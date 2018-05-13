@@ -24,8 +24,8 @@ GLUON_SITE_PACKAGES := \
     haveged
 
 # from ssidchanger-packages:
-#GLUON_SITE_PACKAGES += \
-#	gluon-ssid-changer
+GLUON_SITE_PACKAGES += \
+    gluon-ssid-changer
 
 DEFAULT_GLUON_RELEASE := 2016.2-lede-$(shell date '+%Y%m%d')
 # Allow overriding the release number from the command line
