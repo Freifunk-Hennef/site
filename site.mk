@@ -22,7 +22,8 @@ GLUON_SITE_PACKAGES := \
     gluon-setup-mode \
     iwinfo \
     iptables \
-    haveged
+    haveged \
+    respondd-module-airtime
 
 # from ssidchanger-packages:
 GLUON_SITE_PACKAGES += \
