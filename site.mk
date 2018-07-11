@@ -1,32 +1,32 @@
+GLUON_FEATURES := \
+    respondd \
+    autoupdater \
+    config-mode-autoupdater \
+    config-mode-contact-info \
+    config-mode-core \
+    config-mode-geo-location \
+    config-mode-hostname \
+    config-mode-mesh-vpn \
+    ebtables-filter-multicast \
+    ebtables-filter-ra-dhcp \
+    neighbour-info \
+    web-admin \
+    web-autoupdater \
+    web-network \
+    web-wifi-config \
+    web-private-wifi \
+    mesh-batman-adv-15 \
+    mesh-vpn-fastd \
+    radvd \
+    status-page \
+    setup-mode \
+
+# from ssidchanger-packages:
 GLUON_SITE_PACKAGES := \
-    gluon-respondd \
-    gluon-autoupdater \
-    gluon-config-mode-autoupdater \
-    gluon-config-mode-contact-info \
-    gluon-config-mode-core \
-    gluon-config-mode-geo-location \
-    gluon-config-mode-hostname \
-    gluon-config-mode-mesh-vpn \
-    gluon-ebtables-filter-multicast \
-    gluon-ebtables-filter-ra-dhcp \
-    gluon-neighbour-info \
-    gluon-web-admin \
-    gluon-web-autoupdater \
-    gluon-web-network \
-    gluon-web-wifi-config \
-    gluon-web-private-wifi \
-    gluon-mesh-batman-adv-15 \
-    gluon-mesh-vpn-fastd \
-    gluon-radvd \
-    gluon-status-page \
-    gluon-setup-mode \
     iwinfo \
     iptables \
     haveged \
-    respondd-module-airtime
-
-# from ssidchanger-packages:
-GLUON_SITE_PACKAGES += \
+    respondd-module-airtime \
     gluon-ssid-changer
 
 DEFAULT_GLUON_RELEASE := 2016.2-lede-$(shell date '+%Y%m%d')
