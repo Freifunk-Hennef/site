@@ -9,7 +9,6 @@ GLUON_FEATURES := \
     config-mode-mesh-vpn \
     ebtables-filter-multicast \
     ebtables-filter-ra-dhcp \
-    gluon-web-mesh-vpn-fastd \
     neighbour-info \
     web-admin \
     web-autoupdater \
